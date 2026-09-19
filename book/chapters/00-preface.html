@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>はじめに</title>
+</head>
+<body>
+
+<h1 class="chapter" data-chapter="0">はじめに</h1>
+
+<p>この本は、世界最強クラスのチェスエンジン <strong>Stockfish</strong> の仕組みを、Ruby でゼロから作り直しながら学んでいく本です。駒の動かし方もおぼつかない状態から出発して、最後には自分で書いたエンジンを対局ソフトにつなぎ、実際に対戦できるところまで進みます。</p>
+
+<p>そしてこの本は、ひとつの会話から始まりました。</p>
+
+<h2>この本が生まれた会話</h2>
+
+<div class="talk champierre"><div class="who"></div><div class="bubble">
+<p>チェスのエンジン、stockfish をゼロから ruby で再実装していくチュートリアルを作りたい。書籍にして技術書典に出したいと思っています。図解を豊富に HTML で作成していき、あなたが私に指導していく形でコンテンツを作成していってください。わたしとのやり取りも盛り込んで。読者対象はチェス初心者から初級者、ruby に関しては基本的な知識はある人向けで。</p>
+</div></div>
+
+<div class="talk claude"><div class="who"></div><div class="bubble">
+<p>面白そうですね、ぜひやりましょう。ただ、本の骨格を決める前に、いくつか確認させてください。まず、どこまで作りますか？ Stockfish の強さの秘密は、盤面の表現や探索の工夫だけでなく、ニューラルネットワークによる評価（NNUE）にもあります。全部を 1 冊に詰め込むとかなりの分量になります。</p>
+</div></div>
+
+<div class="talk champierre"><div class="who"></div><div class="bubble">
+<p>シリーズ化前提で。</p>
+</div></div>
+
+<div class="talk claude"><div class="who"></div><div class="bubble">
+<p>では第 1 巻は「GUI で対戦できる、古典的なチェスエンジン」をゴールにしましょう。NNUE や高度な枝刈り、高速化は第 2 巻に回します。進め方は、私が 1 章ずつ課題を出して、champierre さんが実装したり質問したりする。そのやり取りをそのまま原稿にしていく、という形でいいですか？</p>
+</div></div>
+
+<div class="talk champierre"><div class="who"></div><div class="bubble">
+<p>それでお願いします。本の中には実名に近い形で、Claude と champierre として登場させてください。</p>
+</div></div>
+
+<p>こうして、先生役の Claude（Anthropic が開発した AI）と、生徒役の champierre の二人三脚が始まりました。本文の吹き出しに出てくる champierre の発言は、実際に交わしたやり取りをもとにしています。つまずいたところ、勘違いしたところも、なるべくそのまま残しました。読者のみなさんがつまずきそうな場所は、たいてい champierre も一度つまずいているはずです。</p>
+
+<h2>対象読者</h2>
+
+<ul>
+<li><strong>チェス</strong>：まったく知らない人から、ルールは知っているけれど強くはない人まで。必要なルールは第 1 章で図を使って説明します。</li>
+<li><strong>Ruby</strong>：クラス、メソッド、配列、ハッシュ、ブロックといった基本がわかる人。ビット演算のような「普段あまり使わないもの」は、出てきたときに説明します。</li>
+</ul>
+
+<h2>本書の読み方</h2>
+
+<p>各章はおおむね次の流れで進みます。</p>
+
+<ol>
+<li><strong>導入の対話</strong>：その章で何を作るのか、なぜそれが必要なのか。</li>
+<li><strong>チェスの話</strong>：その章に必要な分だけのルールや考え方を、盤面図で説明します。</li>
+<li><strong>図解とコード</strong>：小さなステップに分けて実装し、実際に動かします。</li>
+<li><strong>つまずきの対話</strong>：実際にハマったところを振り返ります。</li>
+<li><strong>Stockfish ではこうなっている</strong>：本家の C++ のコードでは、同じことをどう実現しているかを紹介します。</li>
+<li><strong>演習</strong>：手を動かして理解を確かめる問題です。</li>
+</ol>
+
+<p>本文にはいくつかの囲みが出てきます。</p>
+
+<div class="box chess"><div class="title">キャスリングとは？</div>
+<p>チェスのルールや用語についての補足です。チェスをよく知っている人は読み飛ばしてもかまいません。</p>
+</div>
+
+<div class="box stockfish"><div class="title">src/bitboard.h</div>
+<p>本家 Stockfish のソースコードとの対応です。本書のコードは Stockfish のコードを写したものではなく、同じ考え方を Ruby で素直に書き直したものです。</p>
+</div>
+
+<h2>必要な環境</h2>
+
+<ul>
+<li>Ruby 3.4 以降（YJIT が使えると速くなります）</li>
+<li>git</li>
+<li>テキストエディタとターミナル</li>
+<li>第 14 章から：チェスの対局 GUI（Cute Chess や En Croissant など、無料のもの）</li>
+</ul>
+
+<pre class="console">$ ruby --yjit -v
+ruby 3.4.3 (2025-04-14 revision d0b7e5b6a0) +YJIT +PRISM [arm64-darwin22]</pre>
+
+<p>本書で作るエンジンのソースコードは、章ごとにタグを付けて公開します。途中の章から読み始めたい人は、その章のタグをチェックアウトすれば、前の章までが完成した状態から始められます。</p>
+
+<h2>シリーズの構成</h2>
+
+<table>
+<tr><th>巻</th><th>ゴール</th><th>主な内容</th></tr>
+<tr><td>第 1 巻（本書）</td><td>GUI で対戦できるエンジン</td><td>ビットボード、合法手生成、perft、評価関数、αβ 探索、置換表、UCI</td></tr>
+<tr><td>第 2 巻（予定）</td><td>もっと強く、もっと速く</td><td>探索の枝刈り、NNUE による評価、並列化、Ruby の高速化</td></tr>
+</table>
+
+<div class="box"><div class="title">Stockfish のライセンスについて</div>
+<p>Stockfish は GPL v3 で公開されているオープンソースソフトウェアです。本書ではアルゴリズムや設計の考え方を参考にしますが、コードは一から Ruby で書き下ろしています。本家のコードを引用するときは、出典を明記したうえで最小限にとどめます。</p>
+</div>
+
+</body>
+</html>

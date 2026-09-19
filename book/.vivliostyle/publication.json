@@ -1,0 +1,24 @@
+{
+  "@context": [
+    "https://schema.org",
+    "https://www.w3.org/ns/pub-context"
+  ],
+  "type": "Book",
+  "conformsTo": "https://github.com/vivliostyle/vivliostyle-cli",
+  "name": "Ruby でゼロから作る Stockfish 第1巻",
+  "author": "champierre",
+  "inLanguage": "ja",
+  "dateModified": "2026-09-19T00:36:01.386Z",
+  "readingOrder": [
+    {
+      "url": "chapters/00-preface.html",
+      "name": "はじめに"
+    },
+    {
+      "url": "chapters/01-rules.html",
+      "name": "チェスのルール超入門"
+    }
+  ],
+  "resources": [],
+  "links": []
+}

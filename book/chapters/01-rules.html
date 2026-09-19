@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>チェスのルール超入門</title>
+</head>
+<body>
+
+<h1 class="chapter" data-chapter="1">チェスのルール超入門</h1>
+
+<div class="talk claude"><div class="who"></div><div class="bubble">
+<p>コードを書き始める前に、まずはチェスのルールを押さえておきましょう。エンジンを作るということは、ルールをプログラムに「全部」教えるということです。人間なら「なんとなく」でわかっていることも、プログラムにはひとつ残らず書かなければいけません。</p>
+</div></div>
+
+<!-- TODO(対話): champierre のチェス経験を聞いた返答をここに入れる -->
+
+<h2>盤と駒</h2>
+
+<p>チェスは 8×8 = 64 マスの盤で、白と黒の 2 人が交互に駒を動かすゲームです。白が先手です。最初の配置は<a href="#fig-1-1">図 1.1</a> のようになります。</p>
+
+<figure class="board" id="fig-1-1">
+<img src="../images/ch01-start.svg" alt="初期配置">
+<figcaption>図 1.1　初期配置。白が手前（1〜2 段目）、黒が奥（7〜8 段目）に並ぶ</figcaption>
+</figure>
+
+<p>駒は 6 種類あります。</p>
+
+<table>
+<tr><th>駒</th><th>英語</th><th>記号</th><th>1 人あたりの数</th></tr>
+<tr><td>キング</td><td>King</td><td>K</td><td>1</td></tr>
+<tr><td>クイーン</td><td>Queen</td><td>Q</td><td>1</td></tr>
+<tr><td>ルーク</td><td>Rook</td><td>R</td><td>2</td></tr>
+<tr><td>ビショップ</td><td>Bishop</td><td>B</td><td>2</td></tr>
+<tr><td>ナイト</td><td>Knight</td><td>N</td><td>2</td></tr>
+<tr><td>ポーン</td><td>Pawn</td><td>P</td><td>8</td></tr>
+</table>
+
+<p>記号はこのあと何度も出てきます。ナイトだけ K ではなく <strong>N</strong> なのは、キングと区別するためです。</p>
+
+<h2>マスの名前</h2>
+
+<p>64 のマスには名前が付いています。横の列（左から a〜h）を<strong>ファイル</strong>、縦の段（手前から 1〜8）を<strong>ランク</strong>と呼び、「ファイル＋ランク」でマスを表します。たとえば<a href="#fig-1-2">図 1.2</a> で色を付けたマスは <code>e4</code> です。</p>
+
+<figure class="board" id="fig-1-2">
+<img src="../images/ch01-coords.svg" alt="マスの名前">
+<figcaption>図 1.2　マスの名前。色の付いたマスが e4</figcaption>
+</figure>
+
+<div class="talk claude"><div class="who"></div><div class="bubble">
+<p>このマスの名前は、あとでプログラムの中でも大活躍します。a1 を 0 番、b1 を 1 番……h8 を 63 番と、0〜63 の番号に置き換えて扱うことになります。覚えておいてください。</p>
+</div></div>
+
+<h2>駒の動き</h2>
+
+<h3>ルーク：縦と横にどこまでも</h3>
+
+<p>ルークは縦と横に、何マスでも進めます。</p>
+
+<figure class="board" id="fig-1-3">
+<img src="../images/ch01-rook.svg" alt="ルークの動き">
+<figcaption>図 1.3　d4 のルークが動けるマス（丸印）</figcaption>
+</figure>
+
+<h3>ビショップ：斜めにどこまでも</h3>
+
+<p>ビショップは斜めに、何マスでも進めます。斜めにしか動けないので、白いマスにいるビショップは一生白いマスにしか行けません。</p>
+
+<figure class="board" id="fig-1-4">
+<img src="../images/ch01-bishop.svg" alt="ビショップの動き">
+<figcaption>図 1.4　d4 のビショップが動けるマス</figcaption>
+</figure>
+
+<h3>クイーン：ルーク＋ビショップ</h3>
+
+<p>クイーンは縦・横・斜めの 8 方向に、何マスでも進めます。ルークとビショップを合わせた動きで、いちばん強い駒です。</p>
+
+<figure class="board" id="fig-1-5">
+<img src="../images/ch01-queen.svg" alt="クイーンの動き">
+<figcaption>図 1.5　d4 のクイーンが動けるマス</figcaption>
+</figure>
+
+<h3>キング：周りに 1 マス</h3>
+
+<p>キングは 8 方向に 1 マスだけ動けます。キングを取られたら（正確には、取られるのが避けられなくなったら）負けです。</p>
+
+<figure class="board" id="fig-1-6">
+<img src="../images/ch01-king.svg" alt="キングの動き">
+<figcaption>図 1.6　d4 のキングが動けるマス</figcaption>
+</figure>
+
+<h3>ナイト：L 字に跳ぶ</h3>
+
+<p>ナイトは「縦に 2・横に 1」または「縦に 1・横に 2」の L 字の位置に移動します。ナイトだけは<strong>途中の駒を跳び越せます</strong>。</p>
+
+<figure class="board-pair" id="fig-1-7">
+<div><img src="../images/ch01-knight.svg" alt="ナイトの動き"><div class="sub">(a) d4 のナイトが動けるマス</div></div>
+<div><img src="../images/ch01-knight-jump.svg" alt="囲まれたナイト"><div class="sub">(b) 周りを囲まれていても跳べる</div></div>
+<figcaption>図 1.7　ナイトの動き</figcaption>
+</figure>
+
+<h3>ポーン：前に 1 マス、取るときは斜め</h3>
+
+<p>ポーンはいちばん変わった駒です。</p>
+
+<ul>
+<li>前に 1 マスだけ進める（後ろには戻れない）</li>
+<li>最初の位置にいるときだけ、2 マス進むこともできる</li>
+<li>相手の駒を取るときは<strong>斜め前</strong>に 1 マス。まっすぐ前の駒は取れない</li>
+</ul>
+
+<figure class="board-pair" id="fig-1-8">
+<div><img src="../images/ch01-pawn.svg" alt="ポーンの前進"><div class="sub">(a) 初期位置のポーンは 1 マスか 2 マス進める</div></div>
+<div><img src="../images/ch01-pawn-capture.svg" alt="ポーンの駒取り"><div class="sub">(b) 斜め前の駒は取れるが、正面の駒は取れない</div></div>
+<figcaption>図 1.8　ポーンの動き</figcaption>
+</figure>
+
+<h3>駒を取る・道をふさがれる</h3>
+
+<p>ナイト以外の駒は、途中に駒があるとそれより先には進めません。相手の駒ならそのマスに入って<strong>取る</strong>ことができ、自分の駒ならその手前で止まります。</p>
+
+<figure class="board" id="fig-1-9">
+<img src="../images/ch01-blocked-rook.svg" alt="ふさがれたルーク">
+<figcaption>図 1.9　d4 の白ルーク。d6 の黒ポーンは取れるが、その先の d7・d8 には行けない。b4 は味方のポーンなので a4 にも行けない</figcaption>
+</figure>
+
+<div class="talk claude"><div class="who"></div><div class="bubble">
+<p>いま見た「どこまで進めるか」は、エンジンを作るときの最初の山場です。ナイトやキングのように決まった場所に跳ぶ駒と、ルークやビショップのように「ぶつかるまで滑っていく」駒では、プログラムの書き方がまったく変わります。第 5 章と第 6 章で、この違いにじっくり取り組みます。</p>
+</div></div>
+
+<!-- ここから先は champierre との対話を経て執筆する -->
+<h2>特殊なルール</h2>
+<div class="box"><div class="title">（執筆予定）</div>
+<p>キャスリング、アンパッサン、プロモーション。</p>
+</div>
+
+<h2>勝ち・負け・引き分け</h2>
+<div class="box"><div class="title">（執筆予定）</div>
+<p>チェック、チェックメイト、ステイルメイト、その他の引き分け。</p>
+</div>
+
+<h2>棋譜の読み方</h2>
+<div class="box"><div class="title">（執筆予定）</div>
+<p>代数式記譜法（SAN）と、エンジンが使う UCI 形式の違い。</p>
+</div>
+
+</body>
+</html>

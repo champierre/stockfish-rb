@@ -1,0 +1,187 @@
+/* 『Ruby でゼロから作る Stockfish』本文テーマ (Vivliostyle / JIS-B5) */
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Serif+JP:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap");
+
+:root {
+  --font-body: "Noto Serif JP", "Hiragino Mincho ProN", serif;
+  --font-head: "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+  --font-code: "JetBrains Mono", "Menlo", monospace;
+
+  --ink: #1a1a1a;
+  --muted: #666666;
+  --rule: #999999;
+  --accent: #5c4033;          /* 盤の枠と同じ焦げ茶 */
+  --tint-claude: #f3ece4;      /* Claude の吹き出し */
+  --tint-code: #f5f5f5;
+  --tint-note: #f7f7f7;
+}
+
+@page {
+  size: JIS-B5;
+  margin: 20mm 18mm 22mm 18mm;
+  @top-center {
+    content: string(chapter-title);
+    font-family: var(--font-head);
+    font-size: 8pt;
+    color: var(--muted);
+  }
+  @bottom-center {
+    content: counter(page);
+    font-family: var(--font-head);
+    font-size: 9pt;
+  }
+}
+@page :first {
+  @top-center { content: none; }
+}
+
+html {
+  font-family: var(--font-body);
+  font-size: 9.5pt;
+  line-height: 1.75;
+  color: var(--ink);
+  background: #ffffff;
+  text-align: justify;
+  text-spacing: auto;
+  hanging-punctuation: allow-end;
+}
+
+p { margin: 0 0 0.6em; text-indent: 1em; }
+.talk p, .box p, figcaption, li p { text-indent: 0; }
+
+/* ---------- 見出し ---------- */
+h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.4; break-after: avoid; }
+
+h1.chapter {
+  string-set: chapter-title content(text);
+  font-size: 20pt;
+  margin: 18mm 0 12mm;
+  padding-bottom: 4mm;
+  border-bottom: 2pt solid var(--accent);
+}
+h1.chapter::before {
+  content: "第" attr(data-chapter) "章";
+  display: block;
+  font-size: 11pt;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  margin-bottom: 2mm;
+}
+h1.chapter[data-chapter="0"]::before { content: "PROLOGUE"; }
+
+h2 {
+  font-size: 13pt;
+  margin: 1.8em 0 0.8em;
+  padding-left: 0.6em;
+  border-left: 4pt solid var(--accent);
+}
+h3 { font-size: 10.5pt; margin: 1.4em 0 0.5em; }
+
+/* ---------- 対話 ---------- */
+.talk {
+  display: flex;
+  gap: 3mm;
+  align-items: flex-start;
+  margin: 0.9em 0;
+  break-inside: avoid;
+}
+.talk .who {
+  flex: 0 0 11mm;
+  text-align: center;
+  font-family: var(--font-head);
+  font-size: 6.5pt;
+  color: var(--muted);
+  line-height: 1.3;
+}
+.talk .who::before {
+  display: block;
+  width: 10mm;
+  height: 10mm;
+  margin: 0 auto 1mm;
+  border-radius: 50%;
+  font-size: 10pt;
+  font-weight: 700;
+  line-height: 10mm;
+}
+.talk .bubble {
+  flex: 1;
+  padding: 2.2mm 3.5mm;
+  border-radius: 3mm;
+  position: relative;
+}
+.talk .bubble > :last-child { margin-bottom: 0; }
+
+.talk.claude .who::before { content: "C"; background: var(--accent); color: #ffffff; }
+.talk.claude .who::after { content: "Claude"; }
+.talk.claude .bubble { background: var(--tint-claude); }
+
+.talk.champierre { flex-direction: row-reverse; }
+.talk.champierre .who::before { content: "ch"; background: #ffffff; color: var(--ink); border: 0.8pt solid var(--ink); box-sizing: border-box; }
+.talk.champierre .who::after { content: "champierre"; }
+.talk.champierre .bubble { background: #ffffff; border: 0.8pt solid var(--rule); }
+
+/* ---------- 図 ---------- */
+figure { margin: 1.2em 0; text-align: center; break-inside: avoid; }
+figure img { max-width: 100%; }
+figure.board img { width: 62mm; }
+figure.board-pair { display: flex; justify-content: center; gap: 6mm; flex-wrap: wrap; }
+figure.board-pair > div { width: 58mm; }
+figure.board-pair img { width: 58mm; }
+figure.board-pair .sub { font-family: var(--font-head); font-size: 7.5pt; color: var(--muted); }
+figcaption {
+  font-family: var(--font-head);
+  font-size: 8pt;
+  color: var(--muted);
+  margin-top: 1.5mm;
+  width: 100%;
+}
+
+/* ---------- コード ---------- */
+code { font-family: var(--font-code); font-size: 0.9em; }
+pre {
+  font-family: var(--font-code);
+  font-size: 8pt;
+  line-height: 1.5;
+  background: var(--tint-code);
+  border-left: 2pt solid var(--rule);
+  padding: 2.5mm 3.5mm;
+  margin: 0.8em 0;
+  white-space: pre-wrap;
+  text-align: left;
+}
+pre[data-file]::before {
+  content: attr(data-file);
+  display: block;
+  font-family: var(--font-head);
+  font-size: 7pt;
+  color: var(--muted);
+  margin-bottom: 1.5mm;
+}
+pre.console { background: #ffffff; border: 0.8pt solid var(--ink); border-left-width: 0.8pt; }
+
+/* ---------- 囲み ---------- */
+.box {
+  border: 0.8pt solid var(--ink);
+  padding: 3mm 4mm;
+  margin: 1.2em 0;
+  break-inside: avoid;
+  background: var(--tint-note);
+}
+.box > .title {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 9pt;
+  margin-bottom: 1.5mm;
+}
+.box.stockfish { border-width: 0.8pt 0.8pt 0.8pt 4pt; border-color: var(--accent); background: #ffffff; }
+.box.stockfish > .title::before { content: "Stockfish ではこうなっている ─ "; }
+.box.exercise > .title::before { content: "演習 ─ "; }
+.box.chess > .title::before { content: "チェスのはなし ─ "; }
+
+table { border-collapse: collapse; margin: 1em auto; font-size: 8.5pt; }
+th, td { border: 0.6pt solid var(--rule); padding: 1mm 2.5mm; }
+th { font-family: var(--font-head); background: var(--tint-note); }
+
+ul, ol { padding-left: 1.5em; margin: 0.4em 0 0.8em; }
+
+a { color: inherit; text-decoration: none; }
