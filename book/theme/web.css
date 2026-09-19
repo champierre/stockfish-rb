@@ -1,0 +1,51 @@
+/* Web 版（GitHub Pages）用の上書き。印刷用の book.css の後に読み込む */
+
+html { font-size: 16px; line-height: 1.9; }
+body { margin: 0; background: #ffffff; }
+
+.web-page {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 1.5rem 16px 4rem;
+}
+
+h1.chapter { margin-top: 1rem; font-size: 1.9rem; }
+h2 { font-size: 1.35rem; }
+h3 { font-size: 1.1rem; }
+pre { font-size: 0.85rem; overflow-x: auto; white-space: pre; }
+
+figure.board img { width: min(22rem, 100%); }
+figure.board-pair > div, figure.board-pair img { width: min(20rem, 100%); }
+figcaption, figure.board-pair .sub { font-size: 0.85rem; }
+
+.talk .who { flex-basis: 3.2rem; font-size: 0.7rem; }
+.talk .who::before { width: 2.6rem; height: 2.6rem; line-height: 2.6rem; font-size: 1rem; }
+
+.web-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-head);
+  font-size: 0.85rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 1rem;
+}
+.web-nav:last-child { border-bottom: none; border-top: 1px solid var(--rule); margin-top: 3rem; }
+a { color: var(--accent); }
+.web-nav a, .web-toc a, .web-links a { text-decoration: underline; text-underline-offset: 3px; }
+
+.web-title { font-family: var(--font-head); font-size: 2rem; margin: 2rem 0 1rem; }
+.web-lead { text-indent: 0; }
+.web-links { text-indent: 0; font-family: var(--font-head); }
+.web-toc { list-style: none; padding: 0; font-family: var(--font-head); }
+.web-toc li { padding: 0.5rem 0; border-bottom: 1px solid #e5e5e5; }
+
+@media (max-width: 600px) {
+  .web-nav { flex-direction: column; gap: 0.3rem; }
+  .web-nav a[href$="index.html"] { order: -1; }
+}
+
+.talk .bubble, .box, figure { min-width: 0; max-width: 100%; }
+.web-page { overflow-wrap: anywhere; }
+table { display: block; overflow-x: auto; max-width: 100%; }

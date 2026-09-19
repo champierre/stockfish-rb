@@ -18,3 +18,10 @@ rake test      # エンジンのテスト
 ```
 
 必要なもの：Ruby 3.4 以降、Node.js 22 以降
+
+## 公開
+
+`main` に push すると GitHub Actions（`.github/workflows/pages.yml`）が PDF と Web 版をビルドし、GitHub Pages に公開する。
+
+- Web 版：https://champierre.github.io/stockfish-rb/
+- ローカルで Web 版を組み立てる：`rake pdf && ruby tools/build_site.rb`（`_site/` に出力）
