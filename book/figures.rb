@@ -23,3 +23,6 @@ fig "ch01-pawn-capture", "8/8/8/3ppn2/4P3/8/8/8 w - - 0 1",
     arrow: %w[e4d5 e4f5], cross: %w[e5]
 fig "ch01-blocked-rook", "8/8/3p4/8/1P1R4/8/8/8 w - - 0 1",
     mark: %w[d1 d2 d3 d5 c4 e4 f4 g4 h4], hl: %w[d6], cross: %w[a4 d7 d8]
+fig "ch01-ep-before", "4k3/3p4/8/4P3/8/8/8/4K3 b - - 0 1", arrow: %w[d7d5]
+fig "ch01-ep-after",  "4k3/8/8/3pP3/8/8/8/4K3 w - d6 0 1", arrow: %w[e5d6], hl: %w[d6], cross: %w[d5]
+fig "ch01-ep-same",   "4k3/8/8/3pP3/8/8/8/4K3 w - - 0 1"
