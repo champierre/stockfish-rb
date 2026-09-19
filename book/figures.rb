@@ -26,3 +26,9 @@ fig "ch01-blocked-rook", "8/8/3p4/8/1P1R4/8/8/8 w - - 0 1",
 fig "ch01-ep-before", "4k3/3p4/8/4P3/8/8/8/4K3 b - - 0 1", arrow: %w[d7d5]
 fig "ch01-ep-after",  "4k3/8/8/3pP3/8/8/8/4K3 w - d6 0 1", arrow: %w[e5d6], hl: %w[d6], cross: %w[d5]
 fig "ch01-ep-same",   "4k3/8/8/3pP3/8/8/8/4K3 w - - 0 1"
+fig "ch01-castle-before", "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1"
+fig "ch01-castle-after",  "r3k2r/8/8/8/8/8/8/R4RK1 b kq - 1 1", hl: %w[g1 f1]
+fig "ch01-castle-long",   "r3k2r/8/8/8/8/8/8/2KR3R b kq - 1 1", hl: %w[c1 d1]
+fig "ch01-castle-attacked", "4kr2/8/8/8/8/8/8/4K2R w K - 0 1", hl: %w[f1], cross: %w[g1], arrow: %w[f8f1]
+fig "ch01-repetition-1", START, arrow: %w[g1f3 g8f6]
+fig "ch01-repetition-2", "rnbqkb1r/pppppppp/5n2/8/8/5N2/PPPPPPPP/RNBQKB1R w KQkq - 2 2", arrow: %w[f3g1 f6g8]
