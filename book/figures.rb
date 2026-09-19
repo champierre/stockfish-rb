@@ -39,3 +39,6 @@ fig "ch01-promo-queen",    "2Q5/k7/8/2K5/8/8/8/8 b - - 0 1",
 fig "ch01-promo-rook",     "2R5/k7/8/2K5/8/8/8/8 b - - 0 1",
     cross: %w[a8 b8 b6], mark: %w[b7 a6]
 fig "ch01-promo-knight",   "3N4/1q3k2/8/8/8/7K/8/8 b - - 0 1", arrow: %w[d8b7 d8f7]
+fig "ch01-mate",          "4R1k1/5ppp/8/8/8/8/8/6K1 b - - 0 1", hl: %w[g8], cross: %w[f8 h8]
+fig "ch01-not-mate",      "r3R1k1/5ppp/8/8/8/8/8/6K1 b - - 0 1", hl: %w[g8], cross: %w[f8 h8], arrow: %w[a8e8]
+fig "ch01-not-stalemate", "2Q5/k6p/8/2K5/8/8/8/8 b - - 0 1", cross: %w[a8 b8 b7 a6 b6], arrow: %w[h7h6]
