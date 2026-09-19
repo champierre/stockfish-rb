@@ -185,3 +185,4 @@ th { font-family: var(--font-head); background: var(--tint-note); }
 ul, ol { padding-left: 1.5em; margin: 0.4em 0 0.8em; }
 
 a { color: inherit; text-decoration: none; }
+.talk pre { background: rgba(255, 255, 255, 0.6); }

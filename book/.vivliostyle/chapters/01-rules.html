@@ -256,13 +256,74 @@
 </tbody></table>
 
 <div class="talk claude"><div class="who"></div><div class="bubble">
-<p>実はこの表の上の 3 つは、第 3 章で出てくる <strong>FEN</strong> という局面の書き方に、ちゃんと欄が用意されています。初期局面を FEN で書くと <code>rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1</code> です。後ろのほうの <code>KQkq</code> がキャスリング権、<code>-</code> がアンパッサンのマス、<code>0</code> が 50 手ルール用のカウンタです。でも、4 つ目の履歴は FEN には入りません。これは第 8 章で、局面を 1 つの数値にまとめる「ハッシュ」という技を使って扱います。</p>
+<p>実はこの表の上の 3 つは、第 3 章で出てくる <strong>FEN</strong> という局面の書き方に、ちゃんと欄が用意されています。初期局面を FEN で書くと次のようになります。</p><pre>rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1</pre><p>後ろのほうの <code>KQkq</code> がキャスリング権、<code>-</code> がアンパッサンのマス、<code>0</code> が 50 手ルール用のカウンタです。でも、4 つ目の履歴は FEN には入りません。これは第 8 章で、局面を 1 つの数値にまとめる「ハッシュ」という技を使って扱います。</p>
 </div></div>
 
-<h2>特殊なルール</h2>
-<div class="box"><div class="title">（執筆予定）</div>
-<p>プロモーション。</p>
-</div>
+<h2>プロモーション</h2>
+
+<p>ポーンがいちばん奥の段（白なら 8 段目、黒なら 1 段目）までたどり着くと、<strong>クイーン・ルーク・ビショップ・ナイト</strong>のどれかに成ります。これを<strong>プロモーション</strong>（昇格）と呼びます。キングとポーンには成れません。すでにクイーンが盤上にいても、2 つ目のクイーンに成ることができます。</p>
+
+<figure class="board" id="fig-1-16">
+<img src="../images/ch01-promo.svg" alt="プロモーション">
+<figcaption>図 1.16　e7 のポーンが e8 に進むと、クイーン・ルーク・ビショップ・ナイトのどれかに成る</figcaption>
+</figure>
+
+<div class="talk claude"><div class="who"></div><div class="bubble">
+<p>問題です。「e7 のポーンが e8 に進んでクイーンに成る」手と、「e7 のポーンが e8 に進んでナイトに成る」手。エンジンの中では同じ手ですか、違う手ですか？ それと、クイーン以外に成る意味はあると思いますか？ 実戦でナイトに成ったことはありますか？</p>
+</div></div>
+
+<div class="talk champierre"><div class="who"></div><div class="bubble">
+<p>違う手だと思います。</p>
+<p>実践では、じゅうぶん勝勢のときに、ステイルメイトになるのが怖くてルークになったことはありますが、ナイトになったことはありません。</p>
+</div></div>
+
+<div class="talk claude"><div class="who"></div><div class="bubble">
+<p>正解です。どちらも「e7 から e8 へ」ですが、結果の局面がまったく違うので、エンジンにとっては別の手です。そしてルークに成った経験は、まさにクイーン以外に成る意味そのものですね。図で確かめてみましょう。</p>
+</div></div>
+
+<h3>クイーンに成るとステイルメイトになる局面</h3>
+
+<p><strong>ステイルメイト</strong>とは、手番の側のキングがチェックされていないのに、動かせる手が 1 つもない状態のことです。この場合、ゲームは<strong>引き分け</strong>になります。勝っている側にとっては、勝ちを逃してしまう落とし穴です。</p>
+
+<figure class="board" id="fig-1-17">
+<img src="../images/ch01-promo-before.svg" alt="プロモーション直前">
+<figcaption>図 1.17　白の手番。c7 のポーンが c8 に進んで成る</figcaption>
+</figure>
+
+<figure class="board-pair" id="fig-1-18">
+<div><img src="../images/ch01-promo-queen.svg" alt="クイーンに成った場合"><div class="sub">(a) クイーンに成ると、黒のキングはどこにも動けない。チェックもされていないのでステイルメイト（引き分け）</div></div>
+<div><img src="../images/ch01-promo-rook.svg" alt="ルークに成った場合"><div class="sub">(b) ルークに成ると、黒のキングは b7 と a6 に動ける。白はキングとルークで確実に勝てる</div></div>
+<figcaption>図 1.18　クイーンに成るか、ルークに成るか</figcaption>
+</figure>
+
+<p>クイーンはルークの動きとビショップの動きを両方持っているので、強すぎて相手の逃げ道を全部ふさいでしまうことがあります。ルークならビショップの動き（斜め）がないぶん、b7 と a6 に逃げ道が残ります。</p>
+
+<h3>ナイトに成ると得をする局面</h3>
+
+<p>ナイトに成る意味があるのは、ナイトにしかできない動きがあるときです。クイーンはルークとビショップの動きを全部持っていますが、ナイトの動きだけは持っていません。</p>
+
+<figure class="board" id="fig-1-19">
+<img src="../images/ch01-promo-knight.svg" alt="ナイトに成ってフォーク">
+<figcaption>図 1.19　d7 のポーンが d8 でナイトに成ると、f7 のキングにチェックをかけつつ b7 のクイーンも狙える（フォーク）。黒がキングを逃がしたあと、白はクイーンを取れる</figcaption>
+</figure>
+
+<p>クイーン以外に成ることを<strong>アンダープロモーション</strong>と呼びます。めったに出てきませんが、エンジンにとっては「めったに出ない」は「考えなくていい」という意味ではありません。ルール上指せる手は、すべて候補に入れる必要があります。</p>
+
+<h3>エンジンにとっての「手」</h3>
+
+<p>ここまでをまとめると、エンジンが 1 つの手を表すには、次の情報が必要です。</p>
+
+<ul>
+<li>どこから（例：e7）</li>
+<li>どこへ（例：e8）</li>
+<li>プロモーションなら、何に成るか（クイーン・ルーク・ビショップ・ナイト）</li>
+</ul>
+
+<p>つまり、e7 のポーンが e8 に進む手は 1 つではなく、<strong>4 つの別々の手</strong>です。エンジン同士の通信で使う書き方（UCI 形式、第 14 章）でも、<code>e7e8q</code>、<code>e7e8r</code>、<code>e7e8b</code>、<code>e7e8n</code> のように、最後に成る駒の頭文字を付けて区別します。</p>
+
+<div class="talk claude"><div class="who"></div><div class="bubble">
+<p>さらに、プロモーションは駒取りと同時に起きることもあります。たとえば e7 のポーンが d8 の駒を取りながら成る手です。「駒を取る」「ポーンを動かす」「駒が変わる」が一度に起きるので、ここもアンパッサンと並ぶバグの温床です。第 9 章では、こうした手を正しく数えられているかどうかを確かめる方法を学びます。</p>
+</div></div>
 
 <h2>勝ち・負け・引き分け</h2>
 <div class="box"><div class="title">（執筆予定）</div>

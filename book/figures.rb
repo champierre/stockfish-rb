@@ -32,3 +32,10 @@ fig "ch01-castle-long",   "r3k2r/8/8/8/8/8/8/2KR3R b kq - 1 1", hl: %w[c1 d1]
 fig "ch01-castle-attacked", "4kr2/8/8/8/8/8/8/4K2R w K - 0 1", hl: %w[f1], cross: %w[g1], arrow: %w[f8f1]
 fig "ch01-repetition-1", START, arrow: %w[g1f3 g8f6]
 fig "ch01-repetition-2", "rnbqkb1r/pppppppp/5n2/8/8/5N2/PPPPPPPP/RNBQKB1R w KQkq - 2 2", arrow: %w[f3g1 f6g8]
+fig "ch01-promo",          "8/4P3/8/8/8/8/8/8 w - - 0 1", arrow: %w[e7e8]
+fig "ch01-promo-before",   "8/k1P5/8/2K5/8/8/8/8 w - - 0 1", arrow: %w[c7c8]
+fig "ch01-promo-queen",    "2Q5/k7/8/2K5/8/8/8/8 b - - 0 1",
+    cross: %w[a8 b8 b7 a6 b6]
+fig "ch01-promo-rook",     "2R5/k7/8/2K5/8/8/8/8 b - - 0 1",
+    cross: %w[a8 b8 b6], mark: %w[b7 a6]
+fig "ch01-promo-knight",   "3N4/1q3k2/8/8/8/7K/8/8 b - - 0 1", arrow: %w[d8b7 d8f7]
